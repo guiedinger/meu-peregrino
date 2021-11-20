@@ -35,8 +35,8 @@ export default function MainTemplate(props) {
             Meu Peregrino
           </Typography>
           <Hidden smDown>
-            <UserIcon sx={{ paddingRight: "10px", fontSize: "30px" }} />
             <Typography component="div">{user.name}</Typography>
+            <UserIcon sx={{ paddingLeft: "10px", fontSize: "30px" }} />
           </Hidden>
         </Toolbar>
       </AppBar>
