@@ -6,10 +6,18 @@ import {
   IconButton,
   Hidden,
 } from "@material-ui/core";
+import { useState } from "react";
 import MenuIcon from "@material-ui/icons/Menu";
 import UserIcon from "@material-ui/icons/Person";
 
 export default function MainTemplate(props) {
+  const [user, setUser] = useState(initUser());
+
+  function initUser(){
+    const user = JSON.parse(localStorage.getItem("user"));
+    return user;
+  }
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -28,7 +36,7 @@ export default function MainTemplate(props) {
           </Typography>
           <Hidden smDown>
             <UserIcon sx={{ paddingRight: "10px", fontSize: "30px" }} />
-            <Typography component="div">Nome do Usuário</Typography>
+            <Typography component="div">{user.name}</Typography>
           </Hidden>
         </Toolbar>
       </AppBar>

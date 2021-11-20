@@ -1,11 +1,15 @@
-import { Typography } from "@material-ui/core";
+import { Alert } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import { useHistory } from "react-router-dom";
-
 import { useState } from "react";
+import {auth} from "../service/firebase";
+import { findByKey } from "../service/utils";
+import {collections} from  "../service/collections";
+import {signInWithEmailAndPassword} from "firebase/auth";
 import LoadingButton from "../components/LoadingButton";
 import RoundedInput from "../components/RoundedInput";
-import logo from '../logo.png';
+import logo from '../assets/logo.png';
+
 
 const useStyles = makeStyles((theme) => ({
   logo: {
@@ -33,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     flexFlow: "column",
     justifyContent: "center",
     backgroundColor: "rgba(255,255,255,1)",
-    padding: "30px 15px",
+    padding: "30px 15px 15px 15px",
     borderRadius: "15px ",
     boxShadow: "5px 5px 10px rgba(33,150,243,1)",
   },
@@ -56,11 +60,21 @@ export default function Login() {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
   const history = useHistory();
 
-  function handleSumbit(e) {
+  async function handleSumbit(e)  {
     e.preventDefault();
-    history.push("/main");
+    setIsLoading(true);
+    try{
+      const credentials = await signInWithEmailAndPassword(auth, login, password);
+      const user = await findByKey(collections.users, credentials.user.uid);
+      localStorage.setItem("user", JSON.stringify(user));
+      history.push("/main");
+    }catch(error){
+      setError(error.message);
+    }
+    setIsLoading(false);
   }
 
   return (
@@ -102,6 +116,7 @@ export default function Login() {
         >
           Entrar
         </LoadingButton>
+        <Alert severity="error" style={{ marginTop: "5px", display: error === '' ? "none" : "" }} >{error}</Alert>
       </form>
     </div>
   );
