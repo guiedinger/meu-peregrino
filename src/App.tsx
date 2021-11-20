@@ -1,5 +1,5 @@
 import { createTheme, CssBaseline, ThemeProvider } from "@material-ui/core";
-import { blue } from "@material-ui/core/colors";
+import { blue, grey } from "@material-ui/core/colors";
 import Routes from "./Routes";
 
 const theme = createTheme({
@@ -10,6 +10,16 @@ const theme = createTheme({
     button: {
       textTransform: "none",
     },
+    h4: {
+      fontWeight: "bold",
+    },
+    h5: {
+      fontWeight: "bold",
+    },
+    h6: {
+      fontWeight: "bold",
+      color: grey[500]
+    }
   },
 });
 

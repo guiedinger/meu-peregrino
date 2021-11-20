@@ -3,9 +3,9 @@ import { withStyles } from "@material-ui/styles";
 
 export default withStyles((theme) => ({
   root: {
-    borderRadius: "30px",
+    borderRadius: "15px",
     "& input + fieldset": {
-      borderRadius: "30px",
+      borderRadius: "15px",
     },
     "& input:focus + fieldset": {
       borderColor: '#000',

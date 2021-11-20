@@ -1,29 +1,46 @@
+import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
+import { blue, lightBlue } from "@material-ui/core/colors";
+
 import { useState } from "react";
 import LoadingButton from "../components/LoadingButton";
 import RoundedInput from "../components/RoundedInput";
+import logo from '../logo.png';
 
 const useStyles = makeStyles((theme) => ({
   logo: {
-    width: "250px",
-    maxWidth: "70%",
-    height: "81px",
-    margin: "1.5rem 0rem 1rem 0rem",
+    maxWidth: "100px",
+    maxHeight: "100px",
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
+    margin: "0 0rem 1rem 0rem",
   },
-  form: {
+  container: {
     display: "flex",
     flexFlow: "column",
     width: "100%",
     padding: "16px",
+    justifyContent: "center",
+    alignItems: "center",
+    background: "linear-gradient(90deg, rgba(0,185,255,1) 0%, rgba(0,212,255,1) 100%);",
+    height: "100vh"
+  },
+  loginBox: {
+    display: "flex",
+    maxWidth: "500px!important",
+    width: "100%",
+    flexFlow: "column",
+    justifyContent: "center",
+    backgroundColor: "rgba(255,255,255,1)",
+    padding: "30px 15px",
+    borderRadius: "15px ",
+    boxShadow: "5px 5px 10px rgba(33,150,243,1)",
   },
   input: {
-    paddingBottom: "10px",
-    width: "95%",
+    marginBottom: "10px!important",
+    width: "100%",
     alignSelf: "center",
-  },
-  row: {
-    display: "flex",
-    justifyContent: "space-between",
   },
   buttonProgress: {
     transition: "all 0.3s",
@@ -31,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "4px",
     width: "0px",
   },
+
 }));
 
 export default function Login() {
@@ -40,14 +58,21 @@ export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
 
   return (
-    <div>
-      <section>
+    <div className={[classes.container].join(' ')}>
+      <section className={[classes.loginBox].join(' ')}>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <img src={logo} className={classes.logo} />
+        </div>
+        
         <RoundedInput
           className={classes.input}
           label="Login"
           variant="outlined"
           size="small"
-          inputProps={{ minLength: "4" }}
+          value={login}
+          inputProps={{
+            minLength: "4"
+          }}
           onChange={(e) => setLogin(e.target.value)}
           required
         />
@@ -57,6 +82,7 @@ export default function Login() {
           type="password"
           variant="outlined"
           size="small"
+          value={password}
           inputProps={{ minLength: "6" }}
           onChange={(e) => setPassword(e.target.value)}
           required

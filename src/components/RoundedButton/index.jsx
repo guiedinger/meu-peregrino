@@ -3,6 +3,6 @@ import { withStyles } from "@material-ui/styles";
 
 export default withStyles(() => ({
   root: {
-    borderRadius: "30px",
+    borderRadius: "15px!important",
   },
 }))(Button);
