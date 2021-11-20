@@ -1,6 +1,6 @@
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-import { blue, lightBlue } from "@material-ui/core/colors";
+import { useHistory } from "react-router-dom";
 
 import { useState } from "react";
 import LoadingButton from "../components/LoadingButton";
@@ -56,14 +56,21 @@ export default function Login() {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const history = useHistory();
+
+  function handleSumbit(e) {
+    e.preventDefault();
+    history.push("/main");
+  }
 
   return (
     <div className={[classes.container].join(' ')}>
-      <section className={[classes.loginBox].join(' ')}>
+      <form className={[classes.loginBox].join(' ')} onSubmit={handleSumbit}>
         <div style={{ display: "flex", justifyContent: "center" }}>
           <img src={logo} className={classes.logo} />
         </div>
-        
+
+
         <RoundedInput
           className={classes.input}
           label="Login"
@@ -95,7 +102,7 @@ export default function Login() {
         >
           Entrar
         </LoadingButton>
-      </section>
+      </form>
     </div>
   );
 }
