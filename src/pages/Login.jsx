@@ -2,10 +2,10 @@ import { Alert } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
-import {auth} from "../service/firebase";
+import { auth } from "../service/firebase";
 import { findByKey } from "../service/utils";
-import {collections} from  "../service/collections";
-import {signInWithEmailAndPassword} from "firebase/auth";
+import { collections } from "../service/collections";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import LoadingButton from "../components/LoadingButton";
 import RoundedInput from "../components/RoundedInput";
 import logo from '../assets/logo.png';
@@ -63,15 +63,16 @@ export default function Login() {
   const [error, setError] = useState("");
   const history = useHistory();
 
-  async function handleSumbit(e)  {
+  async function handleSumbit(e) {
     e.preventDefault();
+    localStorage.setItem("user", '');
     setIsLoading(true);
-    try{
+    try {
       const credentials = await signInWithEmailAndPassword(auth, login, password);
       const user = await findByKey(collections.users, credentials.user.uid);
       localStorage.setItem("user", JSON.stringify(user));
       history.push("/main");
-    }catch(error){
+    } catch (error) {
       setError(error.message);
     }
     setIsLoading(false);
