@@ -1,45 +1,28 @@
-import {
-  AppBar,
-  Box,
-  Toolbar,
-  Typography,
-  IconButton,
-  Hidden,
-} from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import { useState } from "react";
-import MenuIcon from "@material-ui/icons/Menu";
-import UserIcon from "@material-ui/icons/Person";
+import { SideMenu } from "../components/SideMenu";
+import MyAppBar from "../components/MyAppBar";
 
-export default function MainTemplate(props) {
+const drawerWidth = 240;
+
+export default function MainTemplate() {
   const [user, setUser] = useState(initUser());
+  const [isSmDevice, setSmDevice] = useState(false);
 
-  function initUser(){
+  const handleDrawerToggle = () => {
+    setSmDevice(!isSmDevice);
+  };
+
+  function initUser() {
     const user = JSON.parse(localStorage.getItem("user"));
     return user;
   }
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
-            Meu Peregrino
-          </Typography>
-          <Hidden smDown>
-            <Typography component="div">{user.name}</Typography>
-            <UserIcon sx={{ paddingLeft: "10px", fontSize: "30px" }} />
-          </Hidden>
-        </Toolbar>
-      </AppBar>
+      <MyAppBar user={user} drawerWidth={drawerWidth} onMenuButtonClick={handleDrawerToggle}/>
+      <SideMenu drawerWidth={drawerWidth} isSmDevice={isSmDevice} onDrawerClose={handleDrawerToggle}/>
     </Box>
+
   );
 }

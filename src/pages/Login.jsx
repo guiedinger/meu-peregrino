@@ -82,7 +82,7 @@ export default function Login() {
     <div className={[classes.container].join(' ')}>
       <form className={[classes.loginBox].join(' ')} onSubmit={handleSumbit}>
         <div style={{ display: "flex", justifyContent: "center" }}>
-          <img src={logo} className={classes.logo} />
+          <img src={logo} className={classes.logo} alt="Logo" />
         </div>
 
 
