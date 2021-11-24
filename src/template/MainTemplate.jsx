@@ -21,7 +21,7 @@ export default function MainTemplate() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <MyAppBar user={user} drawerWidth={drawerWidth} onMenuButtonClick={handleDrawerToggle}/>
-      <SideMenu drawerWidth={drawerWidth} isSmDevice={isSmDevice} onDrawerClose={handleDrawerToggle}/>
+      <SideMenu user={user} drawerWidth={drawerWidth} isSmDevice={isSmDevice} onDrawerClose={handleDrawerToggle}/>
     </Box>
 
   );

@@ -1,36 +1,39 @@
-import * as React from 'react';
-import { AppBar, Toolbar, Divider, List, ListItem, ListItemIcon, ListItemText, Box, Drawer } from '@material-ui/core';
-import MailIcon from '@material-ui/icons/Mail';
-import InboxIcon from '@material-ui/icons/Inbox';
+import { Toolbar, List, ListItem, ListItemIcon, ListItemText, Box, Drawer, Divider } from '@material-ui/core';
+import { makeStyles } from "@material-ui/styles";
+import LogoutIcon from '@material-ui/icons/ExitToApp';
+import UserIcon from '@material-ui/icons/PersonPinCircleOutlined';
+import { menuList } from './List';
+import { SideMenuItem } from '../SideMenuItem';
+import { UserComponent } from '../UserComponent';
+
+const useStyles = makeStyles((theme) => ({
+  drawer: {
+    height: '100%'
+  },
+  userArea: {
+    width: '100%',
+    position: 'absolute',
+    bottom: 0,
+  }
+}));
 
 export function SideMenu(props) {
+  const classes = useStyles();
   const { window } = props;
 
-  const drawer = (
-    <div>
+  const drawerBody = (
+    <div className={classes.drawer}>
       <Toolbar />
+      <UserComponent user={props.user} />
       <Divider />
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
+        {menuList.map((item, index) => (
+          <SideMenuItem index={index} icon={item.icon} name={item.name} />
         ))}
       </List>
-      <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
+      <div className={classes.userArea}>
+        <SideMenuItem icon={<LogoutIcon />} name='Sair' />
+      </div>
     </div>
   );
 
@@ -57,7 +60,7 @@ export function SideMenu(props) {
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: props.drawerWidth },
           }}
         >
-          {drawer}
+          {drawerBody}
         </Drawer>
         <Drawer
           variant="permanent"
@@ -67,7 +70,7 @@ export function SideMenu(props) {
           }}
           open
         >
-          {drawer}
+          {drawerBody}
         </Drawer>
       </Box>
     </Box>
