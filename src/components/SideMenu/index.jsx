@@ -1,7 +1,6 @@
 import { Toolbar, List, ListItem, ListItemIcon, ListItemText, Box, Drawer, Divider } from '@material-ui/core';
 import { makeStyles } from "@material-ui/styles";
 import LogoutIcon from '@material-ui/icons/ExitToApp';
-import UserIcon from '@material-ui/icons/PersonPinCircleOutlined';
 import { menuList } from './List';
 import { SideMenuItem } from '../SideMenuItem';
 import { UserComponent } from '../UserComponent';
@@ -28,10 +27,12 @@ export function SideMenu(props) {
       <Divider />
       <List>
         {menuList.map((item, index) => (
-          <SideMenuItem index={index} icon={item.icon} name={item.name} />
+          <SideMenuItem index={index} icon={item.icon} name={item.name} link={item.link} />
         ))}
       </List>
+
       <div className={classes.userArea}>
+        <Divider />
         <SideMenuItem icon={<LogoutIcon />} name='Sair' />
       </div>
     </div>

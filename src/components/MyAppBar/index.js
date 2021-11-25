@@ -21,10 +21,6 @@ export default function MyAppBar(props) {
                 <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
                     Meu Peregrino
                 </Typography>
-                <Hidden smDown>
-                    <Typography component="div">{props.user.name}</Typography>
-                    <UserIcon sx={{ paddingLeft: "10px", fontSize: "30px" }} />
-                </Hidden>
             </Toolbar>
         </AppBar>
     );
