@@ -7,6 +7,7 @@ import { UserComponent } from '../UserComponent';
 import { signOut } from "firebase/auth";
 import { auth } from "../../service/firebase";
 import { useHistory } from 'react-router';
+import {ADMIN, COMMON} from '../../utils/roles';
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
@@ -30,6 +31,17 @@ export function SideMenu(props) {
     history.push("/");
   }
 
+  function menu(){
+    let list = [];
+    menuList.forEach((element) => {
+      if(element.role === ADMIN && props.user.role !== ADMIN){
+        return;
+      }
+      list.push(element);
+    });
+    return list;
+  }
+
   function handleClick(path) {
     history.push(path);
   }
@@ -40,14 +52,14 @@ export function SideMenu(props) {
       <UserComponent user={props.user} />
       <Divider />
       <List>
-        {menuList.map((item, index) => (
-          <SideMenuItem index={index} icon={item.icon} name={item.name}  onClick={() => {handleClick(item.link)}}/>
+        {menu().map((item, index) => (
+          <SideMenuItem index={index} icon={item.icon} name={item.name} onClick={() => { handleClick(item.link) }} />
         ))}
       </List>
 
       <div className={classes.userArea}>
         <Divider />
-        <SideMenuItem icon={<LogoutIcon />} name='Sair' onClick={() => {logout()}} />
+        <SideMenuItem icon={<LogoutIcon />} name='Sair' index={-1} onClick={() => { logout() }} />
       </div>
     </div>
   );

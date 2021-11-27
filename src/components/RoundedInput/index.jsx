@@ -10,5 +10,7 @@ export default withStyles((theme) => ({
     "& input:focus + fieldset": {
       borderColor: '#000',
     },
+    marginTop: '15px', 
+    width: '100%'
   },
 }))(TextField);

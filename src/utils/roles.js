@@ -1,2 +1,2 @@
-export const ADMIN = 'ADMIN';
-export const COMMON = 'COMMON';
+export const ADMIN = 'Administrador';
+export const COMMON = 'Comum';

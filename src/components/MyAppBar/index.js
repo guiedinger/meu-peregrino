@@ -1,6 +1,5 @@
-import { AppBar, Toolbar, Typography, IconButton, Hidden } from '@material-ui/core';
+import { AppBar, Toolbar, Typography, IconButton } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import UserIcon from '@material-ui/icons/PersonRounded';
 
 export default function MyAppBar(props) {
     return (
