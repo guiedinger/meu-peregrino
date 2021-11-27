@@ -15,7 +15,10 @@ const useStyles = makeStyles((theme) => ({
         paddingRight: '5px',
     },
     username: {
+        fontWeight: 'bold',
+        color: 'black',
         fontSize: '15px',
+        marginBottom: '-5px',
     },
     email: {
         fontSize: '13px',
@@ -29,10 +32,10 @@ export function UserComponent(props) {
         <div className={classes.container}>
             <UserIcon className={classes.icon} />
             <div>
-                <Typography variant="h5" className={classes.username} >
+                <Typography  className={classes.username} >
                     {props.user.name}
                 </Typography>
-                <Typography variant="h6" className={classes.email} >
+                <Typography  className={classes.email} >
                     {props.user.email}
                 </Typography>
             </div>

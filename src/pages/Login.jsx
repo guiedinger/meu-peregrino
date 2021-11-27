@@ -71,7 +71,7 @@ export default function Login() {
       const credentials = await signInWithEmailAndPassword(auth, login, password);
       const user = await findByKey(collections.users, credentials.user.uid);
       localStorage.setItem("user", JSON.stringify(user));
-      history.push("/main");
+      history.push("/lancamentos");
     } catch (error) {
       setError(error.message);
     }

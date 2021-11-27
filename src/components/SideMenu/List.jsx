@@ -12,8 +12,8 @@ export const menuList = [
         role: COMMON
     },
     {
-        name:"Visão Geral",
-        link:"/visao_geral",
+        name:"Inventário",
+        link:"/inventario",
         icon:<ListAlt/>,
         role: COMMON
     },
