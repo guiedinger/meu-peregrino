@@ -1,16 +1,10 @@
-import { ListItem, ListItemIcon, ListItemText} from '@material-ui/core';
-import { useHistory } from "react-router-dom";
+import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 
 
-export function SideMenuItem(props) {
-    const history = useHistory();
-
-    function handleClick(){
-        history.push(props.link);
-    }
+export function SideMenuItem(props) {   
 
     return (
-        <ListItem button key={props.index} onClick={handleClick} >
+        <ListItem button key={props.index} onClick={() => props.onClick()} >
             <ListItemIcon>
                 {props.icon}
             </ListItemIcon>

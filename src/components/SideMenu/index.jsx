@@ -1,9 +1,12 @@
-import { Toolbar, List, ListItem, ListItemIcon, ListItemText, Box, Drawer, Divider } from '@material-ui/core';
+import { Toolbar, List, Box, Drawer, Divider } from '@material-ui/core';
 import { makeStyles } from "@material-ui/styles";
 import LogoutIcon from '@material-ui/icons/ExitToApp';
 import { menuList } from './List';
 import { SideMenuItem } from '../SideMenuItem';
 import { UserComponent } from '../UserComponent';
+import { signOut } from "firebase/auth";
+import { auth } from "../../service/firebase";
+import { useHistory } from 'react-router';
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
@@ -19,6 +22,17 @@ const useStyles = makeStyles((theme) => ({
 export function SideMenu(props) {
   const classes = useStyles();
   const { window } = props;
+  const history = useHistory();
+
+  function logout() {
+    localStorage.setItem("user", '');
+    signOut(auth);
+    history.push("/");
+  }
+
+  function handleClick(path) {
+    history.push(path);
+  }
 
   const drawerBody = (
     <div className={classes.drawer}>
@@ -27,13 +41,13 @@ export function SideMenu(props) {
       <Divider />
       <List>
         {menuList.map((item, index) => (
-          <SideMenuItem index={index} icon={item.icon} name={item.name} link={item.link} />
+          <SideMenuItem index={index} icon={item.icon} name={item.name}  onClick={() => {handleClick(item.link)}}/>
         ))}
       </List>
 
       <div className={classes.userArea}>
         <Divider />
-        <SideMenuItem icon={<LogoutIcon />} name='Sair' />
+        <SideMenuItem icon={<LogoutIcon />} name='Sair' onClick={() => {logout()}} />
       </div>
     </div>
   );
