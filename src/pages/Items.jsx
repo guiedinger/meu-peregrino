@@ -25,7 +25,7 @@ export default function Items() {
   }, []);
 
   function fetch() {
-    findLike(collections.items, 'name', search).then((data) =>{
+    findLike(collections.items, 'name', search).then((data) => {
       setData(data);
     });
   }
@@ -98,7 +98,7 @@ export default function Items() {
     setLoading(false);
   }
 
-  function handleSubmit(e){
+  function handleSubmit(e) {
     e.preventDefault();
     fetch();
   }
@@ -110,7 +110,7 @@ export default function Items() {
         <Breadcrumbs aria-label="breadcrumb" sx={{ flexGrow: 1 }}>
           <Typography color="text.primary">Itens</Typography>
         </Breadcrumbs>
-        <SearchBar value={search} onChange={(e) => setSearch(e.target.value)} onSubmit={handleSubmit}  />
+        <SearchBar value={search} onChange={(e) => setSearch(e.target.value)} onSubmit={handleSubmit} />
         <RoundedButton variant='contained' onClick={() => newEntity()}>
           Novo
         </RoundedButton>
@@ -141,7 +141,7 @@ export default function Items() {
             <Alert severity="error" style={{ marginTop: "5px", display: error === '' ? "none" : "" }} >{error}</Alert>
           </DialogContent>
           <DialogActions>
-            <LoadingButton isLoading={loading} color="error" onClick={remove}>Excluir</LoadingButton>
+            {entity.id != null && <LoadingButton isLoading={loading} color="error" onClick={remove}>Excluir</LoadingButton>}
             <LoadingButton isLoading={loading} onClick={handleClose}>Voltar</LoadingButton>
             <LoadingButton isLoading={loading} type="submit" variant='contained' >Salvar</LoadingButton>
           </DialogActions>

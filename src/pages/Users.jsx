@@ -112,6 +112,7 @@ export default function Users() {
                                 onChange={handleChange}
                                 variant="outlined"
                                 size="small"
+                                sx={{marginTop: '15px'}}
                                 required
                             />
 

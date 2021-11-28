@@ -58,8 +58,8 @@ export async function deleteByKey(path, key) {
 }
 
 export async function findByAttribute(path, attribute, operation, value) {
-    const citiesRef = collection(db, path);
-    const q = query(citiesRef, where(attribute, operation, value));
+    const ref = collection(db, path);
+    const q = query(ref, where(attribute, operation, value));
     const snapshot = await getDocs(q);
     if (snapshot) {
         const list = [];

@@ -5,5 +5,6 @@ export default withStyles(() => ({
   root: {
     borderRadius: "15px!important",
     padding: '5px 3px 3px 8px',
+    textAlign: 'center'
   },
 }))(Button);
