@@ -10,7 +10,9 @@ import LoadingButton from "../components/LoadingButton";
 import ComboBox from "../components/ComboBox";
 import HeadInfo from "../components/HeadInfo";
 import FormDialog from "../components/FormDialog";
+import SelectMenu from "../components/SelectMenu";
 import { collections } from "../service/collections";
+import { INPUT, OUTPUT } from "../utils/operation";
 
 
 export default function Posting() {
@@ -46,12 +48,12 @@ export default function Posting() {
           }
         }
       });
-      list.sort(function(a, b){
+      list.sort(function (a, b) {
         const aDate = Date.parse(a.date);
         const bDate = Date.parse(b.date);
-        if(aDate > bDate){
+        if (aDate > bDate) {
           return -1;
-        }else if(aDate < bDate){
+        } else if (aDate < bDate) {
           return 1;
         }
         return 0;
@@ -61,7 +63,7 @@ export default function Posting() {
   }
 
   function createNewEntity() {
-    return { id: null, itemId: null, item: null, quantity: 1.0, observation: '', date: new Date().toISOString().substring(0, 10) };
+    return { id: null, itemId: null, item: null, quantity: 1.0, observation: '', date: new Date().toISOString().substring(0, 10), operation: INPUT };
   }
 
   function newItem() {
@@ -126,7 +128,7 @@ export default function Posting() {
       setError("Quantidade Inválida");
       return false;
     }
-    if(entity.date == null){
+    if (entity.date == null) {
       setError("Informe uma data");
     }
     return true;
@@ -179,8 +181,21 @@ export default function Posting() {
       <FormDialog open={open} title='Edição' onClose={() => handleClose()}>
         <form onSubmit={save}>
           <DialogContent >
+
             <Grid container spacing={1}>
-              <Grid item xs={12} md={3}>
+              <Grid item xs={12}>
+                <ComboBox
+                  label="Item"
+                  value={item}
+                  onChange={(e, value) => { e.preventDefault(); setItem(value); }}
+                  list={itens}
+                />
+              </Grid>
+              <Grid item xs={12} md={4} >
+                <SelectMenu label="Operação" name='operation' value={entity.operation} onChange={handleChange} size="small"
+                  options={[{ label: 'Entrada', value: INPUT }, { label: 'Saída', value: OUTPUT }]} required />
+              </Grid>
+              <Grid item xs={12} md={4}>
                 <RoundedInput
                   label="Data"
                   name="date"
@@ -192,16 +207,7 @@ export default function Posting() {
                   required
                 />
               </Grid>
-              <Grid item xs={12} md={7}>
-                <ComboBox
-                  label="Item"
-                  value={item}
-                  onChange={(e, value) => { e.preventDefault(); setItem(value); }}
-                  list={itens}
-                />
-
-              </Grid>
-              <Grid item xs={12} md={2}>
+              <Grid item xs={12} md={4}>
                 <RoundedInput
                   label="Quantidade"
                   name="quantity"
@@ -248,18 +254,24 @@ const columns = [
   {
     field: 'date',
     headerName: 'Data',
-    valueFormatter: (params) =>{
+    valueFormatter: (params) => {
       const date = new Date(Date.parse(params.row?.date));
-      return `${date.getDate() + 1 < 10 ? '0'+date.getDate() + 1 : date.getDate() + 1}/${date.getMonth() + 1< 10 ? '0'+date.getMonth()+ 1 : date.getMonth()+ 1}/${date.getFullYear()}`;
+      return `${date.getDate() + 1 < 10 ? '0' + date.getDate() + 1 : date.getDate() + 1}/${date.getMonth() + 1 < 10 ? '0' + date.getMonth() + 1 : date.getMonth() + 1}/${date.getFullYear()}`;
     },
-    flex: 0.2,
+    flex: 0.15,
     minWidth: 150
+  },
+  {
+    field: 'operation',
+    headerName: 'Operação',
+    flex: 0.15,
+    minWidth: 200
   },
   {
     field: 'item',
     headerName: 'Nome',
     valueFormatter: (params) => params.row?.item.name,
-    flex: 0.8,
+    flex: 0.7,
     minWidth: 200
   },
   {
@@ -271,6 +283,6 @@ const columns = [
     },
     flex: 0.2,
     minWidth: 150
-    
+
   },
 ];
