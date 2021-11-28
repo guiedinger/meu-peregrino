@@ -70,6 +70,9 @@ export default function Login() {
     try {
       const credentials = await signInWithEmailAndPassword(auth, login, password);
       const user = await findByKey(collections.users, credentials.user.uid);
+      if(user === null){
+        throw {message: "Usuário não encontrado"};
+      }
       localStorage.setItem("user", JSON.stringify(user));
       history.push("/lancamentos");
     } catch (error) {

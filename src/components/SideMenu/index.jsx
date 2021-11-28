@@ -34,7 +34,7 @@ export function SideMenu(props) {
   function menu(){
     let list = [];
     menuList.forEach((element) => {
-      if(element.role === ADMIN && props.user.role !== ADMIN){
+      if(props.user == null || element.role === ADMIN &&  props.user.role != ADMIN){
         return;
       }
       list.push(element);
