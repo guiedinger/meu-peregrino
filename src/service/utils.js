@@ -1,5 +1,5 @@
 import { db } from "./firebase";
-import { doc, getDoc, collection, getDocs, addDoc, setDoc, deleteDoc  } from "firebase/firestore";
+import { doc, getDoc, collection, getDocs, addDoc, setDoc, deleteDoc, query, where } from "firebase/firestore";
 
 export async function findByKey(collection, key) {
     const docRef = doc(db, collection, key);
@@ -20,23 +20,55 @@ export async function findAll(path) {
             const value = data.data();
             value.id = data.id;
             list.push(value);
-         });
-         return list;
+        });
+        return list;
     }
     return [];
 }
 
-export async function persist(path, item){
-    if(item.id != null){
+export async function findLike(path, attribute, valueStr) {
+    const snapshot = await getDocs(collection(db, path));
+    if (snapshot) {
+        const list = [];
+        snapshot.docs.forEach((data) => {
+            const value = data.data();
+            if (value[attribute].includes(valueStr)) {
+                value.id = data.id;
+                list.push(value);
+            }
+        });
+        return list;
+    }
+    return [];
+}
+
+export async function persist(path, item) {
+    if (item.id != null) {
         const id = item.id;
-        delete item.id; 
+        delete item.id;
         await setDoc(doc(db, path, id), item);
-    }else {
-        delete item.id; 
-        await addDoc(collection(db, path),item);
+    } else {
+        delete item.id;
+        await addDoc(collection(db, path), item);
     }
 }
 
-export async function deleteByKey(path, key){
+export async function deleteByKey(path, key) {
     await deleteDoc(doc(db, path, key));
+}
+
+export async function findByAttribute(path, attribute, operation, value) {
+    const citiesRef = collection(db, path);
+    const q = query(citiesRef, where(attribute, operation, value));
+    const snapshot = await getDocs(q);
+    if (snapshot) {
+        const list = [];
+        snapshot.docs.forEach((data) => {
+            const value = data.data();
+            value.id = data.id;
+            list.push(value);
+        });
+        return list;
+    }
+    return [];
 }

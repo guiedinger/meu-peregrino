@@ -154,8 +154,8 @@ export default function Users() {
                     </Grid>
                 </DialogContent>
                 <DialogActions>
-                    <LoadingButton isLoading={loading} onClick={handleClose}>Cancel</LoadingButton>
-                    <LoadingButton isLoading={loading} onClick={save}>Salvar</LoadingButton>
+                    <LoadingButton isLoading={loading} onClick={handleClose}>Voltar</LoadingButton>
+                    <LoadingButton isLoading={loading} variant='contained' onClick={save}>Salvar</LoadingButton>
                 </DialogActions>
             </FormDialog>
         </MainTemplate>);
