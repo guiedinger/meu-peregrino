@@ -89,6 +89,10 @@ export default function Items() {
   async function remove() {
     setLoading(true);
     try {
+      const postings = await findByAttribute(collections.posting, 'itemId', '==', entity.id);
+      postings.forEach(async (it) => {
+        await deleteByKey(collections.posting, it.id);
+      });
       await deleteByKey(collections.items, entity.id);
       fetch();
       setOpen(false);
