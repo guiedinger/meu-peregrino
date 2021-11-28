@@ -1,6 +1,6 @@
-import { Alert } from "@material-ui/core";
+import { Alert, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { useState } from "react";
 import { auth } from "../service/firebase";
 import { findByKey } from "../service/utils";
@@ -8,8 +8,7 @@ import { collections } from "../service/collections";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import LoadingButton from "../components/LoadingButton";
 import RoundedInput from "../components/RoundedInput";
-import logo from '../assets/logo.png';
-
+import logo from "../assets/logo.png";
 
 const useStyles = makeStyles((theme) => ({
   logo: {
@@ -27,8 +26,9 @@ const useStyles = makeStyles((theme) => ({
     padding: "16px",
     justifyContent: "center",
     alignItems: "center",
-    background: "linear-gradient(90deg, rgba(0,185,255,1) 0%, rgba(0,212,255,1) 100%);",
-    height: "100vh"
+    background:
+      "linear-gradient(90deg, rgba(0,185,255,1) 0%, rgba(0,212,255,1) 100%);",
+    height: "100vh",
   },
   loginBox: {
     display: "flex",
@@ -48,30 +48,32 @@ const useStyles = makeStyles((theme) => ({
   },
   buttonProgress: {
     transition: "all 0.3s",
-    //color: theme.palette.primary,
     marginLeft: "4px",
     width: "0px",
   },
-
 }));
 
 export default function Login() {
   const classes = useStyles();
-  const [login, setLogin] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const history = useHistory();
 
-  async function handleSumbit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    localStorage.setItem("user", '');
+    localStorage.setItem("user", "");
     setIsLoading(true);
     try {
-      const credentials = await signInWithEmailAndPassword(auth, login, password);
+      const credentials = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       const user = await findByKey(collections.users, credentials.user.uid);
-      if(user === null){
-        throw {message: "Usuário não encontrado"};
+      if (user === null) {
+        throw { message: "Usuário não encontrado" };
       }
       localStorage.setItem("user", JSON.stringify(user));
       history.push("/lancamentos");
@@ -82,23 +84,23 @@ export default function Login() {
   }
 
   return (
-    <div className={[classes.container].join(' ')}>
-      <form className={[classes.loginBox].join(' ')} onSubmit={handleSumbit}>
+    <div className={[classes.container].join(" ")}>
+      <form className={[classes.loginBox].join(" ")} onSubmit={handleSubmit}>
         <div style={{ display: "flex", justifyContent: "center" }}>
           <img src={logo} className={classes.logo} alt="Logo" />
         </div>
 
-
         <RoundedInput
           className={classes.input}
-          label="Login"
+          label="Email"
           variant="outlined"
+          type="email"
           size="small"
-          value={login}
+          value={email}
           inputProps={{
-            minLength: "4"
+            minLength: "6",
           }}
-          onChange={(e) => setLogin(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
           required
         />
         <RoundedInput
@@ -120,7 +122,15 @@ export default function Login() {
         >
           Entrar
         </LoadingButton>
-        <Alert severity="error" style={{ marginTop: "5px", display: error === '' ? "none" : "" }} >{error}</Alert>
+        <Button color="primary" component={Link} to="/forgot">
+          Esqueceu sua senha?
+        </Button>
+        <Alert
+          severity="error"
+          style={{ marginTop: "5px", display: error === "" ? "none" : "" }}
+        >
+          {error}
+        </Alert>
       </form>
     </div>
   );
