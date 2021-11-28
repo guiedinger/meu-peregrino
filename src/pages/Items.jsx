@@ -31,7 +31,7 @@ export default function Items() {
   }
 
   function createNewEntity() {
-    return { id: null, name: '' };
+    return { id: null, name: '', unit: '' };
   }
 
   function newEntity() {
@@ -129,7 +129,7 @@ export default function Items() {
         <form onSubmit={save}>
           <DialogContent >
             <Grid container spacing={1}>
-              <Grid item xs={12} >
+              <Grid item xs={12} md={8} >
                 <RoundedInput
                   label="Nome"
                   name="name"
@@ -139,7 +139,16 @@ export default function Items() {
                   size="small"
                   required
                 />
-
+              </Grid>
+              <Grid item xs={12} md={4} >
+                <RoundedInput
+                  label="Unidade de Medida"
+                  name="unit"
+                  value={entity.unit}
+                  onChange={handleChange}
+                  variant="outlined"
+                  size="small"
+                />
               </Grid>
             </Grid>
             <Alert severity="error" style={{ marginTop: "5px", display: error === '' ? "none" : "" }} >{error}</Alert>
@@ -160,7 +169,13 @@ const columns = [
   {
     field: 'name',
     headerName: 'Nome',
-    flex: 1,
+    flex: 0.8,
+    minWidth: 200
+  },
+  {
+    field: 'unit',
+    headerName: 'Unidade de Medida',
+    flex: 0.2,
     minWidth: 200
   },
 ];

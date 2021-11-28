@@ -124,7 +124,8 @@ export default function Posting() {
       setError("Selecione um item");
       return false;
     }
-    if (qty.length == 0) {
+    const value = parseFloat(qty.replace(",", "\."));
+    if (isNaN(value) || value <= 0.0) {
       setError("Quantidade Inválida");
       return false;
     }
