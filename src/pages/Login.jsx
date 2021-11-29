@@ -73,6 +73,7 @@ export default function Login() {
       );
       const user = await findByKey(collections.users, credentials.user.uid);
       if (user === null) {
+        // eslint-disable-next-line no-throw-literal
         throw { message: "Usuário não encontrado" };
       }
       localStorage.setItem("user", JSON.stringify(user));

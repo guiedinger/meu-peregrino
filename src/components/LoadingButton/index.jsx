@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default ({ children, isLoading, disabled, ...rest }) => {
+export default function LoadingButton({ children, isLoading, disabled, ...rest }) {
   const classes = useStyles();
   return (
     <RoundedButton {...rest} disabled={isLoading || disabled}>

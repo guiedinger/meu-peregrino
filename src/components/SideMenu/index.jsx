@@ -7,7 +7,7 @@ import { UserComponent } from '../UserComponent';
 import { signOut } from "firebase/auth";
 import { auth } from "../../service/firebase";
 import { useHistory } from 'react-router';
-import {ADMIN, COMMON} from '../../utils/roles';
+import {ADMIN} from '../../utils/roles';
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
@@ -34,7 +34,7 @@ export function SideMenu(props) {
   function menu(){
     let list = [];
     menuList.forEach((element) => {
-      if(props.user == null || element.role === ADMIN &&  props.user.role != ADMIN){
+      if(props.user == null || (element.role === ADMIN &&  props.user.role !== ADMIN)){
         return;
       }
       list.push(element);

@@ -29,6 +29,7 @@ export default function Posting() {
   useEffect(() => {
     setSearch('');
     fetch();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function fetch() {
@@ -42,7 +43,7 @@ export default function Posting() {
       data.forEach((it) => {
         for (let i = 0; i < itemList.length; i++) {
           let it2 = itemList[i];
-          if (it2.id == it.itemId) {
+          if (it2.id === it.itemId) {
             it.item = it2;
             list.push(it);
           }
@@ -80,7 +81,7 @@ export default function Posting() {
   async function handleEdit(params) {
     const dbObj = await findByKey(collections.posting, params.id);
     if (dbObj != null) {
-      setQty(dbObj.quantity.toString().replace("\.", ","));
+      setQty(dbObj.quantity.toString().replace(".", ","));
       const itemDb = await findByKey(collections.items, dbObj.itemId);
       setItem(itemDb);
       setEntity(dbObj);
@@ -124,7 +125,7 @@ export default function Posting() {
       setError("Selecione um item");
       return false;
     }
-    const value = parseFloat(qty.replace(",", "\."));
+    const value = parseFloat(qty.replace(",", "."));
     if (isNaN(value) || value <= 0.0) {
       setError("Quantidade Inválida");
       return false;
@@ -137,7 +138,7 @@ export default function Posting() {
 
   function ajustFields() {
     const obj = entity;
-    const value = parseFloat(qty.replace(",", "\."));
+    const value = parseFloat(qty.replace(",", "."));
     obj.quantity = value;
     obj.itemId = item.id;
     delete obj.item;
@@ -280,7 +281,7 @@ const columns = [
     headerName: 'Quantidade',
     valueFormatter: (params) => {
       const qty = params.row?.quantity;
-      return qty.toString().replace("\.", ',')
+      return qty.toString().replace(".", ',')
     },
     flex: 0.2,
     minWidth: 150

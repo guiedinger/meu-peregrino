@@ -22,6 +22,7 @@ export default function Items() {
 
   useEffect(() => {
     fetch();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function fetch() {
@@ -79,7 +80,7 @@ export default function Items() {
 
   async function validate(entity) {
     const similar = await findByAttribute(collections.items, 'name', '==', entity.name);
-    if (similar.length > 0 && ((entity.id == null) || (similar[0].id != entity.id))) {
+    if (similar.length > 0 && ((entity.id == null) || (similar[0].id !== entity.id))) {
       setError('Já existe um item com esse nome');
       return false;
     }

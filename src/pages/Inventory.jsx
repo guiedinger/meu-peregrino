@@ -2,41 +2,30 @@ import MainTemplate from "../template/MainTemplate";
 import {
   Breadcrumbs,
   Typography,
-  DialogContent,
-  DialogActions,
-  Grid,
-  Alert,
 } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
 import { useState, useEffect } from "react";
 import {
   findLike,
-  persist,
-  findByKey,
   findByAttribute,
-  deleteByKey,
 } from "../service/utils";
-import RoundedButton from "../components/RoundedButton";
-import RoundedInput from "../components/RoundedInput";
 import SearchBar from "../components/SearchBar";
-import LoadingButton from "../components/LoadingButton";
 import HeadInfo from "../components/HeadInfo";
-import FormDialog from "../components/FormDialog";
 import { collections } from "../service/collections";
 
 export default function Items() {
   const [items, setItems] = useState([]);
   const [inventory, setInventory] = useState([]);
   const [search, setSearch] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
 
   useEffect(() => {
     fetchItems();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     if (items.length) fetchQty();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [items]);
 
   function fetchItems() {
@@ -54,7 +43,7 @@ export default function Items() {
           qty += postings.reduce(
             (acc, post) =>
               acc +
-              (post.operation == "Entrada"
+              (post.operation === "Entrada"
                 ? post.quantity
                 : post.quantity * -1),
             0

@@ -1,4 +1,3 @@
-import { Box } from '@material-ui/core';
 import { makeStyles } from "@material-ui/styles";
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';

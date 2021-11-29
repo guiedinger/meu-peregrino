@@ -7,7 +7,7 @@ import MyAppBar from "../components/MyAppBar";
 const drawerWidth = 240;
 
 export default function MainTemplate(props) {
-  const [user, setUser] = useState(initUser());
+  const [user] = useState(initUser());
   const [isSmDevice, setSmDevice] = useState(false);
 
   const handleDrawerToggle = () => {
