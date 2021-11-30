@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
         padding: '5px 15px'
     },
     icon: {
-        fontSize: '30px',
+        fontSize: '30px !important',
         color: grey[600],
         paddingRight: '5px',
     },
@@ -32,12 +32,12 @@ export function UserComponent(props) {
         <div className={classes.container}>
             <UserIcon className={classes.icon} />
             <div>
-                <Typography  className={classes.username} >
+                <div  className={classes.username} >
                     {props.user.name}
-                </Typography>
-                <Typography  className={classes.email} >
+                </div>
+                <div  className={classes.email} >
                     {props.user.email}
-                </Typography>
+                </div>
             </div>
         </div>
     );
