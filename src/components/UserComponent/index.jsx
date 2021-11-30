@@ -1,4 +1,3 @@
-import { Typography } from '@material-ui/core';
 import { makeStyles } from "@material-ui/styles";
 import UserIcon from '@material-ui/icons/Person';
 import { grey } from "@material-ui/core/colors";
